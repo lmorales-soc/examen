@@ -1,0 +1,23 @@
+EJECUTAR Y PROBAR LA API
+========================
+
+1. Abrir terminal en la carpeta del proyecto:
+   cd "C:\Users\Luis Morales\Documents\examen"
+
+2. Levantar el servidor:
+   php artisan serve
+
+3. La API queda en: http://127.0.0.1:8000
+   Endpoints:
+   - GET    http://127.0.0.1:8000/api/orders          (listar)
+   - POST   http://127.0.0.1:8000/api/orders          (crear)
+   - GET    http://127.0.0.1:8000/api/orders/1        (ver una)
+   - PATCH  http://127.0.0.1:8000/api/orders/1/cancel (cancelar)
+
+4. Probar desde PowerShell (crear orden):
+   Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/orders" -Method Post -ContentType "application/json" -Body '{"cliente":"Juan","producto":"Laptop","cantidad":2,"precio_unitario":599.99,"fecha":"2025-03-13"}'
+
+5. Probar listar:
+   Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/orders" -Method Get
+
+Base de datos: por defecto SQLite (database/database.sqlite). Ya está migrada la tabla orders.

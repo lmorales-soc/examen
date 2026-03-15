@@ -1,0 +1,112 @@
+{
+  "base_url": "http://localhost/api",
+  "endpoints": [
+    {
+      "nombre": "Listar órdenes",
+      "metodo": "GET",
+      "url": "GET {{base_url}}/orders",
+      "request_headers": {},
+      "request_body": null,
+      "response_200": [
+        {
+          "id": 1,
+          "cliente": "Juan Pérez",
+          "producto": "Laptop",
+          "cantidad": 2,
+          "precio_unitario": "599.99",
+          "fecha": "2025-03-13",
+          "total": "1199.98",
+          "estado": "Pendiente",
+          "created_at": "2025-03-13T10:00:00.000000Z",
+          "updated_at": "2025-03-13T10:00:00.000000Z"
+        }
+      ]
+    },
+    {
+      "nombre": "Crear orden",
+      "metodo": "POST",
+      "url": "POST {{base_url}}/orders",
+      "request_headers": { "Content-Type": "application/json" },
+      "request_body": {
+        "cliente": "Juan Pérez",
+        "producto": "Laptop",
+        "cantidad": 2,
+        "precio_unitario": 599.99,
+        "fecha": "2025-03-13"
+      },
+      "response_201": {
+        "id": 1,
+        "cliente": "Juan Pérez",
+        "producto": "Laptop",
+        "cantidad": 2,
+        "precio_unitario": "599.99",
+        "fecha": "2025-03-13",
+        "total": "1199.98",
+        "estado": "Pendiente",
+        "created_at": "2025-03-13T10:00:00.000000Z",
+        "updated_at": "2025-03-13T10:00:00.000000Z"
+      },
+      "response_422_validacion": {
+        "errors": {
+          "cliente": ["El campo cliente es obligatorio."],
+          "cantidad": ["El campo cantidad debe ser al menos 1."]
+        }
+      },
+      "response_422_misma_fecha": {
+        "errors": {
+          "cliente": ["El cliente no puede tener más de una orden el mismo día."]
+        }
+      }
+    },
+    {
+      "nombre": "Obtener orden por ID",
+      "metodo": "GET",
+      "url": "GET {{base_url}}/orders/1",
+      "request_headers": {},
+      "request_body": null,
+      "response_200": {
+        "id": 1,
+        "cliente": "Juan Pérez",
+        "producto": "Laptop",
+        "cantidad": 2,
+        "precio_unitario": "599.99",
+        "fecha": "2025-03-13",
+        "total": "1199.98",
+        "estado": "Pendiente",
+        "created_at": "2025-03-13T10:00:00.000000Z",
+        "updated_at": "2025-03-13T10:00:00.000000Z"
+      },
+      "response_404": {
+        "message": "Orden no encontrada."
+      }
+    },
+    {
+      "nombre": "Cancelar orden",
+      "metodo": "PATCH",
+      "url": "PATCH {{base_url}}/orders/1/cancel",
+      "request_headers": {},
+      "request_body": null,
+      "response_200": {
+        "id": 1,
+        "cliente": "Juan Pérez",
+        "producto": "Laptop",
+        "cantidad": 2,
+        "precio_unitario": "599.99",
+        "fecha": "2025-03-13",
+        "total": "1199.98",
+        "estado": "Cancelada",
+        "created_at": "2025-03-13T10:00:00.000000Z",
+        "updated_at": "2025-03-13T10:05:00.000000Z"
+      },
+      "response_404": {
+        "message": "Orden no encontrada."
+      },
+      "response_422_procesada": {
+        "message": "No se puede cancelar una orden que esté Procesada."
+      },
+      "response_422_ya_cancelada": {
+        "message": "La orden ya está cancelada."
+      }
+    }
+  ]
+}
